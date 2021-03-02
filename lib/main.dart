@@ -69,9 +69,15 @@ class _HomePageState extends State<HomePage> {
               ),
 
             RaisedButton(
-                onPressed: (){
+                onPressed: () async{
                   setState(() {
                     isLoading = true;
+                  });
+
+                  final responce = await dio.get("https://jsonplaceholder.typicode.com/posts");
+                  setState(() {
+                    firstPostTile = responce.data[0]["title"] as String;
+                    isLoading = false;
                   });
                 },
               child: Text("REQUEST DATA"),
